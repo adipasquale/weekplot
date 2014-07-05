@@ -1,0 +1,52 @@
+<form role="form">
+  <div class="row header controls-wrapper">
+    <div class="col-xs-12 col-xs-offset-1 form-inline">
+      <input id="start-date"
+             class="form-control"
+             placeholder="start"/>
+      <span id="start-week">{{startWeek.year.num}}-{{startWeek.num}}</span>
+    </div>
+    <div class="col-xs-12 form-inline">
+      <input id="end-date"
+             class="form-control"
+             placeholder="end"/>
+      <span id="end-week">{{endWeek.year.num}}-{{endWeek.num}}</span>
+    </div>
+    <div class="col-xs-12">
+      <select id="category"
+              class="form-control">
+        <option value="work">work</option>
+        <option value="stage">stage</option>
+        <option value="ecole">ecole</option>
+      </select>
+    </div>
+    <div class="col-xs-12">
+      <input type="text"
+             class="form-control"
+             id="comment"
+             placeholder="comment" />
+    </div>
+  </div>
+</form>
+
+<div class="row year header">
+  <div class="col-xs-1"></div>
+  <div class="col-xs-3" ng-repeat="week in weeksHeaders">
+    {{week}}
+  </div>
+</div>
+
+<div class="weeks-wrapper">
+  <div class="row year" ng-repeat="year in years">
+    <div class="col-xs-1 year-number">
+      {{year.num}}
+    </div>
+    <div class="col-xs-1"
+         ng-repeat="week in year.weeks">
+      <div class="week"
+           ng-click="pickWeek(week, $event)">
+        &nbsp;
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+.row.year {
+  margin: 10px 0;
+}
+.weeks-wrapper {
+  margin: 0 10px;
+}
+.header.controls-wrapper {
+  margin: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+.header.controls-wrapper .controls {
+  margin: 0 20px;
+}
+.week {
+  margin: 0 1px;
+  border: 1px solid #000;
+  cursor: pointer;
+}
+.week:hover {
+  border-color: #FFFF00;
+}
+.week.selected {
+  border-color: #FF0000;
+}
