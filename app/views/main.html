@@ -9,22 +9,24 @@
     <div class="col-xs-12 form-inline">
       <input id="end-date"
              class="form-control"
-             placeholder="end"/>
+             placeholder="end"
+             ng-disabled="!startWeek" />
       <!-- <span id="end-week">{{endWeek.year.num}}-{{endWeek.num}}</span> -->
     </div>
     <div class="col-xs-12">
-      <select id="category"
-              class="form-control">
-        <option value="work">work</option>
-        <option value="stage">stage</option>
-        <option value="ecole">ecole</option>
-      </select>
+      <div class="category"
+           ng-repeat="category in categories"
+           ng-click="pickCategory(category)">
+        <div class="category-fill category-{{category._id}}">
+        </div>
+      </div>
     </div>
     <div class="col-xs-12">
       <input type="text"
              class="form-control"
              id="comment"
-             placeholder="comment" />
+             placeholder="comment"
+             ng-disabled="!startWeek || !endWeek" />
     </div>
   </div>
 </form>
@@ -36,15 +38,16 @@
   </div>
 </div>
 
-<div class="weeks-wrapper">
+<div class="weeks-wrapper"
+     ng-mouseleave="clearAllWeeksHighlight()">
   <div class="row year" ng-repeat="year in years">
     <div class="col-xs-1 year-number">
       {{year.num}}
     </div>
     <div class="col-xs-1"
          ng-repeat="week in year.weeks">
-      <div class="week {{week._selected ? 'selected' : ''}}"
-           id="week-abs-{{week.absnum}}"
+      <div class="week"
+           ng-class="getWeekClasses(week)"
            ng-click="pickWeek(week, $event)"
            ng-mouseover="hoverWeek(week, $event)">
         &nbsp;
@@ -52,3 +55,10 @@
     </div>
   </div>
 </div>
+
+<style ng-repeat="category in categories">
+  .category-{{category._id}}{
+    background-color: {{category.color}};
+    border-color: {{category.color}};
+  }
+</style>
