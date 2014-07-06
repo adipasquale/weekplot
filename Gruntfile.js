@@ -316,6 +316,7 @@ module.exports = function (grunt) {
             '.htaccess',
             '*.html',
             'views/{,*/}*.html',
+            'styles/customized-bootstrap.css',
             'images/{,*/}*.{webp}',
             'fonts/*'
           ]
@@ -423,7 +424,7 @@ module.exports = function (grunt) {
     'concat',
     'ngmin',
     'copy:dist',
-    'cdnify',
+    // 'cdnify',
     'cssmin',
     'uglify',
     'filerev',
