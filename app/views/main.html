@@ -4,13 +4,13 @@
       <input id="start-date"
              class="form-control"
              placeholder="start"/>
-      <span id="start-week">{{startWeek.year.num}}-{{startWeek.num}}</span>
+      <!-- <span id="start-week">{{startWeek.year.num}}-{{startWeek.num}}</span> -->
     </div>
     <div class="col-xs-12 form-inline">
       <input id="end-date"
              class="form-control"
              placeholder="end"/>
-      <span id="end-week">{{endWeek.year.num}}-{{endWeek.num}}</span>
+      <!-- <span id="end-week">{{endWeek.year.num}}-{{endWeek.num}}</span> -->
     </div>
     <div class="col-xs-12">
       <select id="category"
@@ -43,8 +43,10 @@
     </div>
     <div class="col-xs-1"
          ng-repeat="week in year.weeks">
-      <div class="week"
-           ng-click="pickWeek(week, $event)">
+      <div class="week {{week._selected ? 'selected' : ''}}"
+           id="week-abs-{{week.absnum}}"
+           ng-click="pickWeek(week, $event)"
+           ng-mouseover="hoverWeek(week, $event)">
         &nbsp;
       </div>
     </div>

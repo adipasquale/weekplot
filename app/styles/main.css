@@ -16,8 +16,9 @@
   border: 1px solid #000;
   cursor: pointer;
 }
-.week:hover {
-  border-color: #FFFF00;
+.week:hover,
+.week.highlight {
+  border-color: #FF00FF;
 }
 .week.selected {
   border-color: #FF0000;
