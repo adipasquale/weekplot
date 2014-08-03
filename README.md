@@ -12,9 +12,12 @@ A running and free version of this app will soon be available on [weekplot.com](
 
 ## Security
 
-WeekPlot is NOT secure (yet). please don't store anything too private on it.
+WeekPlot is as secure as your computer is. It stores everything locally using [localStorage]().
+In the future, we may propose to store and / or publish your Weekplots online, but the localStorage will always be the default way.
 
 ## Tech
+
+see [tech.md](./tech.md) for sourcecode details.
 
 ### Libraries and dependencies
 

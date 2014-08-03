@@ -1,23 +1,16 @@
 <form role="form">
   <div class="row header controls-wrapper">
-    <div class="col-xs-12 col-xs-offset-1 form-inline">
-      <input id="start-date"
-             class="form-control"
-             placeholder="start"/>
-      <!-- <span id="start-week">{{startWeek.year.num}}-{{startWeek.num}}</span> -->
-    </div>
-    <div class="col-xs-12 form-inline">
-      <input id="end-date"
-             class="form-control"
-             placeholder="end"
-             ng-disabled="!startWeek" />
-      <!-- <span id="end-week">{{endWeek.year.num}}-{{endWeek.num}}</span> -->
-    </div>
     <div class="col-xs-12">
       <div class="category"
-           ng-repeat="category in categories"
-           ng-click="pickCategory(category)">
+           ng-repeat="category in wp.categories"
+           ng-class="{selected: category._selected}"
+           ng-click="selectCategory(category)">
         <div class="category-fill category-{{category._id}}">
+        </div>
+      </div>
+      <div class="category" id="category-add">
+        <div class="category-fill category-add">
+          +
         </div>
       </div>
     </div>
@@ -26,7 +19,7 @@
              class="form-control"
              id="comment"
              placeholder="comment"
-             ng-disabled="!startWeek || !endWeek" />
+             ng-disabled="!selectedPeriod" />
     </div>
   </div>
 </form>
@@ -39,8 +32,9 @@
 </div>
 
 <div class="weeks-wrapper"
-     ng-mouseleave="clearAllWeeksHighlight()">
-  <div class="row year" ng-repeat="year in years">
+     ng-mouseleave="clearAllWeeksHighlight()"
+     ng-mouseup="abortNewPeriod()">
+  <div class="row year" ng-repeat="year in wp.years">
     <div class="col-xs-1 year-number">
       {{year.num}}
     </div>
@@ -48,7 +42,8 @@
          ng-repeat="week in year.weeks">
       <div class="week"
            ng-class="getWeekClasses(week)"
-           ng-click="pickWeek(week, $event)"
+           ng-mousedown="startSelection(week, $event)"
+           ng-mouseup="endSelection(week, $event); $event.stopPropagation()"
            ng-mouseover="hoverWeek(week, $event)">
         &nbsp;
       </div>
@@ -56,7 +51,24 @@
   </div>
 </div>
 
-<style ng-repeat="category in categories">
+<div id="add-category-modal"
+     class="modal"
+     role="modal">
+  <form id="add-category">
+    <input type="text"
+           placeholder="hex value"
+           value="" />
+
+    <input type="text"
+           placeholder="name"
+           value="" />
+
+    <input type="submit"
+           value="create">
+  </form>
+</div>
+
+<style ng-repeat="category in wp.categories">
   .category-{{category._id}}{
     background-color: {{category.color}};
     border-color: {{category.color}};
