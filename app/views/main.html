@@ -1,25 +1,54 @@
 <form role="form">
   <div class="row header controls-wrapper">
-    <div class="col-xs-12">
+    <div class="col-xs-12"
+         ng-hide="inCategoryCreation">
       <div class="category"
-           ng-repeat="category in wp.categories"
+           ng-repeat="category in wp.categories|filter:{_hidden:false}"
            ng-class="{selected: category._selected}"
            ng-click="selectCategory(category)">
-        <div class="category-fill category-{{category._id}}">
+        <div class="category-fill category-{{category._index}}">
         </div>
       </div>
-      <div class="category" id="category-add">
+      <div class="category"
+           id="category-add"
+           ng-click="createCategory()">
         <div class="category-fill category-add">
           +
         </div>
       </div>
+      <div class="category"
+           id="category-remove"
+           ng-click="destroySelectedPeriod()"
+           ng-class="canIDestroy() ? '' : 'invisible'">
+        <div class="category-fill category-remove">
+          x
+        </div>
+      </div>
     </div>
+    <div class="col-xs-12"
+         ng-show="inCategoryCreation">
+      <div class="category"
+         ng-repeat="category in wp.categories|filter:{_hidden:true}"
+         ng-class="{selected: category._selected}"
+         ng-click="selectCategory(category)">
+        <div class="category-fill category-{{category._index}}">
+        </div>
+      </div>
+      <div class="category"
+           id="category-exit"
+           ng-click="abortNewCategory()">
+        <div class="category-fill category-exit">
+          &larrow;
+        </div>
+      </div>
+    </div>
+
     <div class="col-xs-12">
       <input type="text"
              class="form-control"
-             id="comment"
-             placeholder="comment"
-             ng-disabled="!selectedPeriod" />
+             id="textbox"
+             ng-model="textbox"
+             placeholder="command" />
     </div>
   </div>
 </form>
@@ -32,8 +61,9 @@
 </div>
 
 <div class="weeks-wrapper"
-     ng-mouseleave="clearAllWeeksHighlight()"
-     ng-mouseup="abortNewPeriod()">
+     ng-mouseleave=""
+     ng-mouseup="abortNewPeriod()"
+     ng-keypress="keyPressed($event)">
   <div class="row year" ng-repeat="year in wp.years">
     <div class="col-xs-1 year-number">
       {{year.num}}
@@ -69,8 +99,8 @@
 </div>
 
 <style ng-repeat="category in wp.categories">
-  .category-{{category._id}}{
-    background-color: {{category.color}};
-    border-color: {{category.color}};
+  .category-{{category._index}}{
+    background-color: {{category._color}};
+    border-color: {{category._color}};
   }
 </style>

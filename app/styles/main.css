@@ -25,6 +25,9 @@
   width: 100%;
   height: 100%;
 }
+.header.controls-wrapper .category .category-remove.invisible {
+  color: transparent;
+}
 .header.controls-wrapper .category:hover,
 .header.controls-wrapper .category.selected {
   border-color: black;
@@ -38,8 +41,7 @@
   border: 1px solid #000;
   cursor: pointer;
 }
-.row.year .week:hover,
-.row.year .week.highlight {
+.row.year .week:hover {
   border-color: #FF00FF;
 }
 .row.year .week.selected {
